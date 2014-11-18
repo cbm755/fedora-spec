@@ -1,11 +1,11 @@
 Name:           perl-Text-BibTeX
-Version:        0.69
+Version:        0.70
 Release:        1%{?dist}
 Summary:        Interface to read and parse BibTeX files
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Text-BibTeX/
-Source0:        http://www.cpan.org/authors/id/A/AM/AMBS/Text/Text-BibTeX-%{version}.tar.gz
+Source0:        http://www.cpan.org/authors/id/A/AM/AMBS/Text-BibTeX-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(Capture::Tiny) >= 0.06
 BuildRequires:  perl(Config::AutoConf) >= 0.16
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Fri Oct 03 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.70-1
+- Version bump.
+
 * Thu Jun 26 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.69-1
 - Changes file changed case.
 - Add a TODO for the various files doc files.
