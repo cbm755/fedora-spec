@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-LibBuilder
 Version:        0.06
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ExtUtils::LibBuilder Perl module
 License:        GPL+ or Artistic
 Group:          Development/Libraries
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 18 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.06-2
+- rev bump to try to fix copr for F21
+
 * Fri Oct 03 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.06-1
 - Specfile updated according cpanspec 1.78.
 

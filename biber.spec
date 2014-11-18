@@ -4,7 +4,7 @@
 
 Name:		biber
 Version:	1.9
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A BibTeX replacement for users of BibLaTeX
 
 Group:          Development/Tools
@@ -77,6 +77,9 @@ rm -rf %{buildroot}%{_libdir}/perl5/auto %{buildroot}%{_datadir}/perl5/Unicode
 
 
 %changelog
+* Tue Nov 18 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.9-3
+- rev bump to try to fix copr for F21
+
 * Fri Jun 27 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.9-1
 - Bump to 1.9 (actually one commit past the tag for 1.9)
 
