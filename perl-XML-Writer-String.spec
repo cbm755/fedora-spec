@@ -1,18 +1,18 @@
 Name:           perl-XML-Writer-String
 Version:        0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Capture output from XML::Writer module
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/XML-Writer-String/
 Source0:        http://www.cpan.org/authors/id/S/SO/SOLIVER/XML-Writer-String-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+BuildRequires:  perl
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(XML::Writer)
 
 %description
@@ -43,6 +43,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.1-5
+- minor edits from review.
+
 * Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.1-4
 - clean-up following review, added dep on XML::Writer.
 

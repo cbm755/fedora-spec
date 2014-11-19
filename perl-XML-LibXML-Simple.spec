@@ -1,13 +1,13 @@
 Name:           perl-XML-LibXML-Simple
 Version:        0.94
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Read XML strings or files
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/XML-LibXML-Simple/
 Source0:        http://www.cpan.org/authors/id/M/MA/MARKOV/XML-LibXML-Simple-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+BuildRequires:  perl
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -24,7 +24,7 @@ BuildRequires:  perl(File::Slurp::Tiny)
 BuildRequires:  perl(Test::More) >= 0.54
 BuildRequires:  perl(XML::LibXML) >= 1.64
 BuildRequires:  perl(Test::More) >= 0.54
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(XML::LibXML) >= 1.64
 
 # drop unversioned Requires on XML::LibXML
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.94-3
+- clean-up following further review.
+
 * Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.94-2
 - clean-up following review, better summary/description.
 

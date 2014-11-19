@@ -7,7 +7,7 @@ Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Tie-Cycle/
 Source0:        http://www.cpan.org/authors/id/B/BD/BDFOY/Tie-Cycle-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+BuildRequires:  perl
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(Test::More) >= 0.95
 BuildRequires:  perl(Carp)
