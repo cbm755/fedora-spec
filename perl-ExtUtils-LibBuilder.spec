@@ -1,13 +1,16 @@
 Name:           perl-ExtUtils-LibBuilder
 Version:        0.06
-Release:        2%{?dist}
-Summary:        ExtUtils::LibBuilder Perl module
+Release:        3%{?dist}
+Summary:        Compile standard C libraries for use in Perl
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/ExtUtils-LibBuilder/
 Source0:        http://www.cpan.org/authors/id/A/AM/AMBS/ExtUtils-LibBuilder-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
+BuildRequires:  perl
+BuildRequires:  perl(base)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 BuildRequires:  perl(ExtUtils::CBuilder) >= 0.23
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
@@ -18,37 +21,32 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $versi
 %description
 Some Perl modules need to ship C libraries together with their Perl code.
 Although there are mechanisms to compile and link (or glue) C code in your
-Perl programs, there isn't a clear method to compile standard, self-
-contained C libraries.
+Perl programs, there was not a clear method to compile standard, self-
+contained C libraries.  This module helps in that task.
 
 %prep
 %setup -q -n ExtUtils-LibBuilder-%{version}
 
 %build
-%{__perl} Build.PL installdirs=vendor
+perl Build.PL installdirs=vendor
 ./Build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 ./Build test
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
-%defattr(-,root,root,-)
-%doc Changes META.json README
+%doc Changes README
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.06-3
+- revision from other feedback on other packages.
+
 * Tue Nov 18 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.06-2
 - rev bump to try to fix copr for F21
 
