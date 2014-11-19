@@ -1,59 +1,65 @@
 Name:           perl-Text-BibTeX
 Version:        0.70
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Interface to read and parse BibTeX files
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Text-BibTeX/
 Source0:        http://www.cpan.org/authors/id/A/AM/AMBS/Text-BibTeX-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:  perl
 BuildRequires:  perl(Capture::Tiny) >= 0.06
 BuildRequires:  perl(Config::AutoConf) >= 0.16
 BuildRequires:  perl(ExtUtils::CBuilder) >= 0.27
 BuildRequires:  perl(ExtUtils::LibBuilder) >= 0.02
 BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(Test::Simple)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(utf8)
+BuildRequires:  perl(Encode)
+BuildRequires:  perl(Fcntl)
+BuildRequires:  perl(DynaLoader)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(UNIVERSAL)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
+BuildRequires:  perl(warnings)
 BuildRequires:  chrpath
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
-The Text::BibTeX module serves mainly as a high-level introduction to the
-Text::BibTeX library, for both code and documentation purposes. The code
-loads the two fundamental modules for processing BibTeX files
-(Text::BibTeX::File and Text::BibTeX::Entry), and this documentation gives
-a broad overview of the whole library that isn't available in the
-documentation for the individual modules that comprise it.
+The Text::BibTeX module processes BibTeX data.  It includes object-oriented
+interfaces to both BibTeX database files and individual bibliographic
+entries, as well as other miscellaneous functions.
 
 %prep
 %setup -q -n Text-BibTeX-%{version}
-sed -i 's#/usr/local/bin/perl5#/usr/bin/perl#' scripts/* examples/*
-sed -i 's#/usr/local/bin/perl#/usr/bin/perl#' scripts/*
+sed -i 's#/usr/local/bin/perl5#%{__perl}#' scripts/* examples/*
+sed -i 's#/usr/local/bin/perl#%{__perl}#' scripts/*
+chmod a-x scripts/*
+chmod a-x examples/*
 
 %build
-%{__perl} Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
+perl Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
 ./Build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
 %{_fixperms} $RPM_BUILD_ROOT/*
 chrpath -d $RPM_BUILD_ROOT%{_bindir}/*
 
 %check
 ./Build test
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-
-# TODO: stuff in btparse should be installed somewhere?  Or is it really docs?
+# FIXME: this installs a library: should there be some include files?
+#        Surely can't have this non-versioned: "/usr/lib64/libbtparse.so"
+# FIXME: these binaries are installed, do we want?  biblex, bibparse, dumpnames
+# FIXME: what is "xscode/": should install somewhere?
 %files
-%defattr(-,root,root,-)
-%doc btparse Changes examples META.json README README.OLD scripts THANKS xscode
+%doc Changes examples README README.OLD scripts THANKS
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Text*
 %{_mandir}/man3/*
@@ -62,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 
 %changelog
+* Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.70-2
+- revision from other feedback on other packages, clean up.
+
 * Fri Oct 03 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.70-1
 - Version bump.
 
