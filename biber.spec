@@ -1,18 +1,14 @@
-%global git_hash d9d65aa
-#(for 1.9 it was 65e3cef)
-#(for 1.8 it was 848ca84)
+%global git_hash 848ca84
 
 Name:		biber
-Version:	1.9
+Version:	1.8
 Release:	3%{?dist}
-Summary:	A BibTeX replacement for users of BibLaTeX
+Summary:	Command-line bibliographic manager, BibTeX replacement
 
 Group:          Development/Tools
 License:	GPL+ or Artistic
 URL:		http://biblatex-biber.sourceforge.net/
-# https://github.com/plk/biber/zipball/v1.8
-# for 1.9, didn't use a tag b/c want one commit after the tag
-Source0:	plk-%{name}-v%{version}-2-g%{git_hash}.zip
+Source0:	plk-%{name}-v%{version}-0-g%{git_hash}.zip
 
 BuildArch:      noarch
 
@@ -44,14 +40,14 @@ Requires:       perl(Mozilla::CA)
 Requires:       perl(Readonly::XS)
 Requires:       perl(autovivification)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+# FIXME: how to specify biblatex >= 2.8?
+Requires:       texlive-biblatex >= 4:svn32245.2.8
 
 %description
-The biblatex package by Philipp Lehman is becoming the definitive citation
-management tool for LaTeX users. Biblatex has relied on the venerable
-BibTeX program only for sorting and generating a very generic .bbl file
-without any formatting instruction. Everything else is taken care of by
-biblatex, which provides a powerful and flexible macro interface for
-authors of citation styles.
+Biber is a command-line tool for dealing with bibliographic databases.
+Biber offers a large superset of legacy BibTeX (texlive-bibtex)
+functionality.  It is often used with the popular BibLaTeX package
+(texlive-biblatex), where it is required for some features.
 
 %prep
 %setup -q -n plk-%{name}-%{git_hash}
@@ -77,11 +73,11 @@ rm -rf %{buildroot}%{_libdir}/perl5/auto %{buildroot}%{_datadir}/perl5/Unicode
 
 
 %changelog
-* Tue Nov 18 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.9-3
-- rev bump to try to fix copr for F21
+* Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.8-3
+- update description and Summary
 
-* Fri Jun 27 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.9-1
-- Bump to 1.9 (actually one commit past the tag for 1.9)
+* Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.8-2
+- Add dep on (probably overly) specific texlive-biblatex
 
 * Tue Jan 14 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.8-1
 - Bump to 1.8
