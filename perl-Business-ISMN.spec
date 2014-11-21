@@ -1,7 +1,7 @@
 Name:           perl-Business-ISMN
 Version:        1.11
-Release:        3%{?dist}
-Summary:        Perl extension to work with International Standard Music Numbers
+Release:        4%{?dist}
+Summary:        Perl library for International Standard Music Numbers
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Business-ISMN/
@@ -19,12 +19,14 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(subs)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
+BuildRequires:  perl(Test::Pod) >= 1.00
+BuildRequires:  perl(Test::Pod::Coverage)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 Patch0:         %{name}-fix-package.patch
 
 %description
-Perl extension to work with International Standard Music Numbers.
+%{summary}.
 
 %prep
 %setup -q -n Business-ISMN-%{version}
@@ -42,11 +44,15 @@ make pure_install DESTDIR=$RPM_BUILD_ROOT
 make test
 
 %files
-%doc Changes LICENSE README
+%license LICENSE
+%doc Changes README
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Nov 21 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.11-4
+- additional BuildRequires, minor edits.
+
 * Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.11-3
 - revision from other feedback on other packages.
 

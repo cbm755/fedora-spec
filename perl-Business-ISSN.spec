@@ -1,7 +1,7 @@
 Name:           perl-Business-ISSN
 Version:        0.91
-Release:        3%{?dist}
-Summary:        Perl extension for International Standard Serial Numbers
+Release:        4%{?dist}
+Summary:        Perl library for International Standard Serial Numbers
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Business-ISSN/
@@ -19,7 +19,7 @@ BuildRequires:  perl(Test::More)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
-Perl extension for International Standard Serial Numbers
+%{summary}.
 
 %prep
 %setup -q -n Business-ISSN-%{version}
@@ -36,12 +36,16 @@ make pure_install DESTDIR=$RPM_BUILD_ROOT
 make test
 
 %files
-# there is an examples/ dir but its currently just a placeholder
-%doc Changes LICENSE README
+%license LICENSE
+# currently only a placeholder in examples/
+%doc Changes README
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Nov 21 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.91-4
+- Use license macro, minor edits.
+
 * Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.91-3
 - revision from other feedback on other packages.
 
