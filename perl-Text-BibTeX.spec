@@ -1,16 +1,21 @@
 Name:           perl-Text-BibTeX
 Version:        0.70
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Interface to read and parse BibTeX files
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Text-BibTeX/
 Source0:        http://www.cpan.org/authors/id/A/AM/AMBS/Text-BibTeX-%{version}.tar.gz
 BuildRequires:  perl
+BuildRequires:  perl(base)
+BuildRequires:  perl(lib)
 BuildRequires:  perl(Capture::Tiny) >= 0.06
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Config::AutoConf) >= 0.16
 BuildRequires:  perl(ExtUtils::CBuilder) >= 0.27
 BuildRequires:  perl(ExtUtils::LibBuilder) >= 0.02
+BuildRequires:  perl(ExtUtils::Mkbootstrap)
+BuildRequires:  perl(ExtUtils::ParseXS)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Carp)
@@ -22,6 +27,9 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(File::Copy)
+BuildRequires:  perl(File::Path)
+BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(UNIVERSAL)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
@@ -38,8 +46,7 @@ entries, as well as other miscellaneous functions.
 %setup -q -n Text-BibTeX-%{version}
 sed -i 's#/usr/local/bin/perl5#%{__perl}#' scripts/* examples/*
 sed -i 's#/usr/local/bin/perl#%{__perl}#' scripts/*
-chmod a-x scripts/*
-chmod a-x examples/*
+chmod a-x scripts/* examples/*
 
 %build
 perl Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
@@ -54,12 +61,10 @@ chrpath -d $RPM_BUILD_ROOT%{_bindir}/*
 %check
 ./Build test
 
-# FIXME: this installs a library: should there be some include files?
-#        Surely can't have this non-versioned: "/usr/lib64/libbtparse.so"
-# FIXME: these binaries are installed, do we want?  biblex, bibparse, dumpnames
-# FIXME: what is "xscode/": should install somewhere?
+# FIXME: "/usr/lib64/libbtparse.so" somewhere else?
+# FIXME: biblex, bibparse, dumpnames: need man pages?
 %files
-%doc Changes examples README README.OLD scripts THANKS
+%doc Changes examples README README.OLD scripts THANKS btool_faq.pod
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Text*
 %{_mandir}/man3/*
@@ -68,6 +73,11 @@ chrpath -d $RPM_BUILD_ROOT%{_bindir}/*
 %{_libdir}/*.so
 
 %changelog
+* Sat Nov 22 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.70-3
+- install faq file.
+- no need to split out btparse (used to be a standalone library but is
+  now a part of this package).
+
 * Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.70-2
 - revision from other feedback on other packages, clean up.
 
