@@ -1,7 +1,7 @@
 Name:           perl-ExtUtils-LibBuilder
 Version:        0.06
-Release:        3%{?dist}
-Summary:        Compile standard C libraries for use in Perl
+Release:        4%{?dist}
+Summary:        Perl library to build C libraries and programs
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/ExtUtils-LibBuilder/
@@ -14,7 +14,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(ExtUtils::CBuilder) >= 0.23
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(Module::Build) >= 0.42
 BuildRequires:  perl(Test::More)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
@@ -44,6 +44,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Sat Nov 22 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.06-4
+- minor revision from feedback.
+
 * Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 0.06-3
 - revision from other feedback on other packages.
 
