@@ -44,8 +44,7 @@ entries, as well as other miscellaneous functions.
 
 %prep
 %setup -q -n Text-BibTeX-%{version}
-sed -i 's#/usr/local/bin/perl5#%{__perl}#' scripts/* examples/*
-sed -i 's#/usr/local/bin/perl#%{__perl}#' scripts/*
+sed -ri 's#/usr/local/bin/perl5?#%{__perl}#' scripts/* examples/*
 chmod a-x scripts/* examples/*
 
 %build
@@ -61,8 +60,6 @@ chrpath -d $RPM_BUILD_ROOT%{_bindir}/*
 %check
 ./Build test
 
-# FIXME: "/usr/lib64/libbtparse.so" somewhere else?
-# FIXME: biblex, bibparse, dumpnames: need man pages?
 %files
 %doc Changes examples README README.OLD scripts THANKS btool_faq.pod
 %{perl_vendorarch}/auto/*
