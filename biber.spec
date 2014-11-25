@@ -1,14 +1,11 @@
-%global git_hash 848ca84
-
 Name:           biber
 Version:        1.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Command-line bibliographic manager, BibTeX replacement
 License:        GPL+ or Artistic
 Group:          Development/Tools
 URL:            http://biblatex-biber.sourceforge.net/
-Source0:        plk-%{name}-v%{version}-0-g%{git_hash}.zip
-
+Source0:        https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/%{version}/biblatex-biber.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  perl(autovivification)
@@ -89,8 +86,9 @@ Biber offers a large superset of legacy BibTeX (texlive-bibtex)
 functionality.  It is often used with the popular BibLaTeX package
 (texlive-biblatex), where it is required for some features.
 
+
 %prep
-%setup -q -n plk-%{name}-%{git_hash}
+%setup -q -n biblatex-biber-%{version}
 
 
 %build
@@ -113,6 +111,9 @@ chmod u+w %{buildroot}%{_bindir}/*
 
 
 %changelog
+* Tue Nov 25 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.8-5
+- Use sourceforge for Source0 instead of particular git commit.
+
 * Tue Nov 25 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.8-4
 - lots more BRs, perm fixes.
 
