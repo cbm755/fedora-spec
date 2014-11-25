@@ -1,47 +1,87 @@
 %global git_hash 848ca84
 
-Name:		biber
-Version:	1.8
-Release:	3%{?dist}
-Summary:	Command-line bibliographic manager, BibTeX replacement
-
+Name:           biber
+Version:        1.8
+Release:        4%{?dist}
+Summary:        Command-line bibliographic manager, BibTeX replacement
+License:        GPL+ or Artistic
 Group:          Development/Tools
-License:	GPL+ or Artistic
-URL:		http://biblatex-biber.sourceforge.net/
-Source0:	plk-%{name}-v%{version}-0-g%{git_hash}.zip
+URL:            http://biblatex-biber.sourceforge.net/
+Source0:        plk-%{name}-v%{version}-0-g%{git_hash}.zip
 
 BuildArch:      noarch
 
-BuildRequires:	perl(Module::Build)
-BuildRequires:	perl(Config::AutoConf)
-BuildRequires:	perl(ExtUtils::LibBuilder)
-
-Requires:	perl(Data::Dump)
-Requires:       perl(Data::Compare)
-Requires:       perl(Date::Simple)
-Requires:       perl(File::Slurp)
-Requires:       perl(IPC::Cmd)
-Requires:       perl(IPC::Run3)
-Requires:       perl(List::AllUtils)
-Requires:       perl(List::MoreUtils)
-Requires:       perl(Regexp::Common)
-Requires:       perl(Log::Log4perl)
-Requires:       perl(Unicode::Collate)
-Requires:       perl(XML::LibXML::Simple)
-Requires:       perl(XML::LibXSLT)
-Requires:       perl(XML::Writer::String)
-Requires:       perl(Text::BibTeX)
-Requires:       perl(LWP::Simple)
-Requires:       perl(LWP::Protocol::https)
-Requires:       perl(Business::ISBN)
-Requires:       perl(Business::ISSN)
-Requires:       perl(Business::ISMN)
-Requires:       perl(Mozilla::CA)
-Requires:       perl(Readonly::XS)
-Requires:       perl(autovivification)
+BuildRequires:  perl(autovivification)
+BuildRequires:  perl(base)
+BuildRequires:  perl(Business::ISBN)
+BuildRequires:  perl(Business::ISSN)
+BuildRequires:  perl(Business::ISMN)
+BuildRequires:  perl(Config::AutoConf) >= 0.15
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Capture::Tiny)
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Data::Dump)
+BuildRequires:  perl(Data::Compare)
+BuildRequires:  perl(Date::Simple)
+BuildRequires:  perl(Digest::MD5)
+BuildRequires:  perl(Encode)
+BuildRequires:  perl(Encode::Alias)
+BuildRequires:  perl(Encode::EUCJPASCII)
+BuildRequires:  perl(Encode::HanExtra)
+BuildRequires:  perl(Encode::JIS2K)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(ExtUtils::LibBuilder) >= 0.02
+BuildRequires:  perl(File::Compare)
+BuildRequires:  perl(File::Copy)
+BuildRequires:  perl(File::Find)
+BuildRequires:  perl(File::Slurp)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(File::Which)
+BuildRequires:  perl(Getopt::Long)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(IPC::Cmd)
+BuildRequires:  perl(IPC::Run3)
+BuildRequires:  perl(List::AllUtils)
+BuildRequires:  perl(List::MoreUtils)
+BuildRequires:  perl(List::Util)
+BuildRequires:  perl(locale)
+BuildRequires:  perl(Log::Log4perl)
+BuildRequires:  perl(LWP::Simple)
+BuildRequires:  perl(LWP::Protocol::https)
+BuildRequires:  perl(Module::Build) >= 0.38
+BuildRequires:  perl(Mozilla::CA) >= 20130114
+BuildRequires:  perl(Pod::Usage)
+BuildRequires:  perl(POSIX)
+BuildRequires:  perl(Readonly)
+BuildRequires:  perl(Readonly::XS)
+BuildRequires:  perl(Regexp::Common)
+BuildRequires:  perl(Storable)
+BuildRequires:  perl(sigtrap)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Text::BibTeX) >= 0.66
+BuildRequires:  perl(Text::Wrap)
+BuildRequires:  perl(Unicode::Normalize)
+BuildRequires:  perl(Unicode::GCString)
+# FIXME: not available in rawhide or F21?
+#BuildRequires:  perl(Unicode::Collate) >= 0.98
+BuildRequires:  perl(Unicode::Collate)
+BuildRequires:  perl(Unicode::Collate::Locale)
+BuildRequires:  perl(URI)
+BuildRequires:  perl(utf8)
+BuildRequires:  perl(vars)
+BuildRequires:  perl(warnings)
+BuildRequires:  perl(XML::LibXML)
+BuildRequires:  perl(XML::LibXML::Simple)
+BuildRequires:  perl(XML::LibXSLT)
+BuildRequires:  perl(XML::Writer)
+BuildRequires:  perl(XML::Writer::String)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-# FIXME: how to specify biblatex >= 2.8?
-Requires:       texlive-biblatex >= 4:svn32245.2.8
+# Note: biber 1.9 will need 2.9
+Requires:       texlive-biblatex >= 4:svn32245.2.8a
+
 
 %description
 Biber is a command-line tool for dealing with bibliographic databases.
@@ -59,8 +99,9 @@ perl Build.PL
 
 
 %install
-./Build install --prefix %{buildroot}/usr
+./Build install --prefix %{buildroot}/usr create_packlist=0
 rm -rf %{buildroot}%{_libdir}/perl5/auto %{buildroot}%{_datadir}/perl5/Unicode
+chmod u+w %{buildroot}%{_bindir}/*
 
 
 %files
@@ -71,8 +112,10 @@ rm -rf %{buildroot}%{_libdir}/perl5/auto %{buildroot}%{_datadir}/perl5/Unicode
 %{_datadir}/perl5/Biber*
 
 
-
 %changelog
+* Tue Nov 25 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.8-4
+- lots more BRs, perm fixes.
+
 * Wed Nov 19 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.8-3
 - update description and Summary
 
