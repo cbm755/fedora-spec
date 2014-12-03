@@ -1,6 +1,6 @@
 Name:           biber
 Version:        1.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Command-line bibliographic manager, BibTeX replacement
 License:        GPL+ or Artistic
 Group:          Development/Tools
@@ -76,6 +76,35 @@ BuildRequires:  perl(XML::LibXSLT)
 BuildRequires:  perl(XML::Writer)
 BuildRequires:  perl(XML::Writer::String)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires:       perl(autovivification)
+Requires:       perl(Business::ISBN)
+Requires:       perl(Business::ISMN)
+Requires:       perl(Business::ISSN)
+Requires:       perl(Data::Dump)
+Requires:       perl(Data::Compare)
+Requires:       perl(Date::Simple)
+Requires:       perl(Encode::EUCJPASCII)
+Requires:       perl(Encode::HanExtra)
+Requires:       perl(Encode::JIS2K)
+Requires:       perl(File::Slurp)
+Requires:       perl(IPC::Cmd)
+Requires:       perl(IPC::Run3)
+Requires:       perl(List::AllUtils)
+Requires:       perl(List::MoreUtils)
+Requires:       perl(Log::Log4perl)
+Requires:       perl(LWP::Simple)
+Requires:       perl(LWP::Protocol::https)
+Requires:       perl(Mozilla::CA) >= 20130114
+Requires:       perl(Regexp::Common)
+Requires:       perl(Text::BibTeX) >= 0.66
+# FIXME: not available in rawhide or F21?
+#Requires:       perl(Unicode::Collate) >= 0.98
+Requires:       perl(Unicode::Collate)
+Requires:       perl(Unicode::GCString)
+Requires:       perl(URI)
+Requires:       perl(XML::LibXSLT)
+Requires:       perl(XML::Writer)
+Requires:       perl(XML::Writer::String)
 # Note: biber 1.9 will need 2.9
 Requires:       texlive-biblatex >= 4:svn32245.2.8a
 
@@ -111,6 +140,9 @@ chmod u+w %{buildroot}%{_bindir}/*
 
 
 %changelog
+* Wed Dec 3 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.8-6
+- Add Requires, taken from Build.pl.
+
 * Tue Nov 25 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.8-5
 - Use sourceforge for Source0 instead of particular git commit.
 
