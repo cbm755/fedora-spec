@@ -1,6 +1,6 @@
 Name:           biber
 Version:        1.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Command-line bibliographic manager, BibTeX replacement
 License:        GPL+ or Artistic
 Group:          Development/Tools
@@ -62,7 +62,9 @@ BuildRequires:  perl(Text::BibTeX) >= 0.66
 BuildRequires:  perl(Text::Wrap)
 BuildRequires:  perl(Unicode::Normalize)
 BuildRequires:  perl(Unicode::GCString)
-# FIXME: not available in rawhide or F21?
+# Note: upstream thinks we can relax this requirement
+# https://github.com/plk/biber/issues/54
+# (should reintroduce once perl has a U::C subpackage)
 #BuildRequires:  perl(Unicode::Collate) >= 0.98
 BuildRequires:  perl(Unicode::Collate)
 BuildRequires:  perl(Unicode::Collate::Locale)
@@ -97,7 +99,7 @@ Requires:       perl(LWP::Protocol::https)
 Requires:       perl(Mozilla::CA) >= 20130114
 Requires:       perl(Regexp::Common)
 Requires:       perl(Text::BibTeX) >= 0.66
-# FIXME: not available in rawhide or F21?
+# Note: as above
 #Requires:       perl(Unicode::Collate) >= 0.98
 Requires:       perl(Unicode::Collate)
 Requires:       perl(Unicode::GCString)
@@ -140,6 +142,9 @@ chmod u+w %{buildroot}%{_bindir}/*
 
 
 %changelog
+* Thu Mar 19 2015 Colin B. Macdonald <cbm@m.fsf.org> 1.8-7
+- Upstream thinks ok to relax U::C requirements.
+
 * Wed Dec 3 2014 Colin B. Macdonald <cbm@m.fsf.org> 1.8-6
 - Add Requires, taken from Build.pl.
 
